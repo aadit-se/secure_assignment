@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+   
+</head>
+  <body>
+    <h1>Login</h1>
+	<form action="/signIn" name="login" method="post" onsubmit="hid();">
+        <table>
+            <tr>
+                <td>
+                    firstname
+                </td>
+                <td>
+                    <input type="text" name="FirstName" id="FirstName">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    lastName
+                </td>
+                <td>
+                    <input type="text" name="LastName" id="LastName">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    email
+                </td>
+                <td>
+                    <input type="email" name="Emaild" id="Emaild">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    username
+                </td>
+                <td>
+                    <input type="text" name="UserName" id="UserName">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    password
+                </td>
+                <td>
+                    <input type="password" name="Password">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit" onclick="return validatePassword()">submit</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <script>
+        function validatePassword() 
+        {
+        var p = document.login.Password.value;
+        errors = [];
+        var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        if (p.length < 8) {
+            errors.push("Your password must be at least 8 characters"); 
+        }
+        if (p.search(/[a-z]/i) < 0) {
+            errors.push("Your password must contain at least one letter.");
+        }
+        if (p.search(/[0-9]/) < 0) {
+            errors.push("Your password must contain at least one digit."); 
+        }
+        
+        if (p.search(/[!@#$%^&*]/)<0)
+        {
+            errors.push("Your password must contain at least one special."); 
+        }
+        if (errors.length > 0) {
+            alert(errors.join("\n"));
+            return false;
+        }
+            document.login.Password.value=CryptoJS.MD5(document.login.Password.value);
+            return true;
+        }
+       
+    </script>
+  </body>
+</html>

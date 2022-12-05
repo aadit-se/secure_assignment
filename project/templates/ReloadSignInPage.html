@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="../static/LoginValidation.js"></script>
+    <script>
+        function chkPassword()
+        {
+            var newPassword = document.login.Password.value;
+            var minNumberofChars = 6;
+            var maxNumberofChars = 16;
+            var regularExpression  = /^[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+            alert(newPassword); 
+            if(newPassword.length < minNumberofChars || newPassword.length > maxNumberofChars){
+                return false;
+            }
+            if(!regularExpression.test(newPassword)) {
+                alert("password should contain atleast one number and one special character");
+                return false;
+            }
+            documenst.login.Password.value=CryptoJS.MD5(document.login.Password.value);
+            // return true;  
+            return false;            
+
+        }
+        
+                
+            </script>
+</head>
+  <body>
+    {% with messages = get_flashed_messages() %}
+   {% if messages %}
+      {% for message in messages %}
+         {{ message }}
+      {% endfor %}
+   {% endif %}
+{% endwith %}
+    <h1>Login</h1>
+	<form action="/signIn" name="login" method="post" onsubmit="return chkPassword();"> 
+        <table>
+            <tr>
+                <td>
+                    firstname
+                </td>
+                <td>
+                    <input type="text" name="FirstName" id="FirstName" value="{{obj.FirstName}}">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    lastName
+                </td>
+                <td>
+                    <input type="text" name="LastName" id="LastName" value="{{obj.LastName}}">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    email
+                </td>
+                <td>
+                    <input type="email" name="Emaild" id="Emaild" value="{{obj.Emaild}}">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    username
+                </td>
+                <td>
+                    <input type="text" name="UserName" id="UserName" value="{{obj.UserName}}">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    password
+                </td>
+                <td>
+                    <input type="password" name="Password" id="Password">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+  </body>
+</html>
